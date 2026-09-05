@@ -14,10 +14,13 @@ public class ItemRepository {
   private final EntityManager em;
 
   public Item save(Item item) {
-    if(item.getId() == null)
+    if(item.getId() == null) {
       em.persist(item);
-    else
-      em.merge(item);
+    }
+    else {
+      // 가급적 merge를 사용하지 말자.
+      item = em.merge(item);
+    }
 
     return item;
   }
